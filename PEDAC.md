@@ -35,6 +35,7 @@ Adding multiple images with different descriptions, tags etc.
 ## Mental Model:
 App must allow for images (one, multiple, bulk) to be added to the repository linked to their username.
 In order to update or delete images, user must be logged in and have access to rights for the selected images.
+Adding images will require a two part process of uploading image and validatingthe file, and then adding any extra info to the image. This will allow for bulk adding of images.
 
 # Examples
 **Examples / Test Cases / Edge Cases**
@@ -81,19 +82,38 @@ User
 Image
 - ID (int)
 - filename ()
-- name (String)
 - description (String)
 - tags (List of Strings)
 - user_id (int, foreign key to User, one-to-one)
 
 # Algorithm
+**Upload image/s**
+Using Flask-wtf form
+Only show file uploader
+Once submitted, redirect to page with table of new image/s
+Edit description and tags
+
+Using built in file save
+'image_create' Route with POST request
+Check if one or multiple images uploaded
+If one
+    save image file with filename using werkzeug.save
+    insert filename into db
+    redirect to info update route
+elif multiple
+    loop through list, saving each file using werkzeug.save
+    insert all filenames into db
+    redirect to info update route
+
+'image_update' Route with GET POST request
+
 
 **Login**
 Use Flask-login
 https://flask-login.readthedocs.io/en/latest/
 
-**Upload image/s**
-Using Flask-wtf
+
+
 
 **Update image**
 Using Flask-wtf
