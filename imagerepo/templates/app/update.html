@@ -1,4 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<div class="container">
+    <h1>Update</h1>
+    <p>{{description}}</p>
+    <form method="POST" action="" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="file" name="file" accept="image/*" multiple>
+        </div>
+        <div>
+            <img src="{{ image }}">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            {{ form.description(class_ = 'form-control', autofocus = true) }}
+        </div>
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            {{ form.tags(class_ = 'form-control', autofocus = true) }}
+        </div>
+        <div class="form-group">
+            <label for="user">User</label>
+            {{ form.user_id(class_ = 'form-control', autofocus = true) }}
+        </div>
+        <input type="submit" name="submit-image-details" value="Submit Image Details" class="btn btn-primary btn-lg btn-block">
+    </form>
+</div>
 {% endblock %}

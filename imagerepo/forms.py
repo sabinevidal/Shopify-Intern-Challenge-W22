@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import Form, Field, BooleanField, StringField, IntegerField, validators
+from wtforms.fields.core import FormField
 from wtforms.widgets import TextInput
 from .models import *
 from flask_wtf.file import FileField, FileRequired
@@ -41,9 +42,16 @@ class BetterTagListField(TagListField):
 
 class UploadImageForm(FlaskForm):
     filename = FileField(validators=[FileRequired()])
+    # description = StringField()
+    # tags = BetterTagListField()
+    # user_id = IntegerField()
+
+class ImageDetailsForm(FlaskForm):
+    # filename = FileField(validators=[FileRequired()])
     description = StringField()
     tags = BetterTagListField()
     user_id = IntegerField()
-
-
+class GiantForm(FlaskForm):
+    image_file = FormField(UploadImageForm)
+    image_details = FormField(ImageDetailsForm)
 
