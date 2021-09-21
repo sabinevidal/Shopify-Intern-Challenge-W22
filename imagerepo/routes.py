@@ -39,15 +39,7 @@ def image_create():
 
     if len(request.files.getlist('file')) > 1:
         for file in request.files.getlist('file'):
-            filename = secure_filename(file.filename)
-            if filename != '':
-                file_ext = os.path.splitext(filename)[1]
-                if file_ext.lower() not in app.config['UPLOAD_EXTENSIONS'] or \
-                        file_ext.lower() != validate_image(file.stream):
-                    return "Invalid image", 400
-                file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
-
-                flash("The image was successfully saved!")
+            image_uploader(file)
 
         try:
             new_image = Image(description=description, tags=tags, user_id=user_id)
@@ -64,19 +56,15 @@ def image_create():
 
     elif len(request.files.getlist('file')) == 1:
         file = request.files['file']
-        filename = secure_filename(file.filename)
-        if filename != '':
-            file_ext = os.path.splitext(filename)[1]
-            if file_ext.lower() not in app.config['UPLOAD_EXTENSIONS'] or \
-                    file_ext.lower() != validate_image(file.stream):
-                return "Invalid image", 400
-            file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
+        image_uploader(file)
+
+        return make_response(f"One Image successfully created!")
 
     else:
         abort(400)
 
     # return redirect('/update')
-    return make_response(f"Image successfully created!")
+    # return make_response(f"Image successfully created!")
 
 @app.route('/update', methods=['GET'])
 def image_update_form():
@@ -106,6 +94,15 @@ def user_create():
         db.session.commit()
     return make_response(f"{new_user} successfully created!")
 
+def image_uploader(file):
+    filename = secure_filename(file.filename)
+    if filename != '':
+        file_ext = os.path.splitext(filename)[1]
+        if file_ext.lower() not in app.config['UPLOAD_EXTENSIONS'] or \
+                file_ext.lower() != validate_image(file.stream):
+            return "Invalid image", 400
+        file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
+    return file
 
 # -----------------------------------------------------------
 # Error Handlers
