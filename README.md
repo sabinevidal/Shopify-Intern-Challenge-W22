@@ -35,16 +35,16 @@ Developers should have Python3, and pip3 installed
 
 ### Backend Dependencies 
 #### Virtual Environment
-Navigate to the `/imagerepo` directory and run:
+In the main directory run:
 ```bash
 python -m venv venv
 ```
-To activate the virtual environment, in the `/imagerepo` directory run:
+To activate the virtual environment, in the main directory run:
 ```bash
 souce venv/bin/activate
 ```
 #### Dependencies
-Once you have your virtual environment setup and running, install dependencies by navigating to the `/backend` directory and running:
+Once you have your virtual environment setup and running, install dependencies by running:
 
 ```bash
 pip install -r requirements.txt
@@ -57,12 +57,12 @@ pip install -r requirements.txt
 
 ## Running the server
 
-From within the `/imagerepo` directory first ensure you are working using your created virtual environment.
+From within the main directory first ensure you are working using your created virtual environment.
 
 To run the server, execute:
 
 ```bash
-flask run
+imagerepo run
 ```
 
 ## Testing
